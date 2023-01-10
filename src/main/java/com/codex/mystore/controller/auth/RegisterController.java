@@ -1,6 +1,8 @@
 package com.codex.mystore.controller.auth;
 
 import com.codex.mystore.dao.repo.RoleRepository;
+import com.codex.mystore.dao.repo.UserRepository;
+import com.codex.mystore.exception.ProcessException;
 import com.codex.mystore.models.request.RegisterRequest;
 import com.codex.mystore.models.role.Role;
 import com.codex.mystore.models.user.User;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("api/register")
@@ -25,8 +29,23 @@ public class RegisterController {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @PostMapping(value = "/signup")
     public ResponseEntity<User> createUser(@RequestBody RegisterRequest registerRequest) {
+        String regex = "^(.+)@(.+)$";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(registerRequest.getUserEmail());
+
+        if (!matcher.matches()) {
+            throw new ProcessException("Invalid Email Format");
+        }
+        if (userRepository.findByEmail(registerRequest.getUserEmail()) == null) {
+            throw new ProcessException("Email Already Exist");
+        }
+
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
         Role userRole = roleRepository.findByName("ROLE_USER");
         List<Role> roleList = new ArrayList<>();
@@ -42,7 +61,7 @@ public class RegisterController {
         user.setEmail(registerRequest.getUserEmail());
         user.setEnabled(true);
         user.setRoles(roleList);
-        return new ResponseEntity<User>(registerService.createUser(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(registerService.createUser(user), HttpStatus.CREATED);
     }
 
 }
