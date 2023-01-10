@@ -1,5 +1,6 @@
 package com.codex.mystore.controller.auth;
 
+import com.codex.mystore.constants.RoleType;
 import com.codex.mystore.dao.repo.RoleRepository;
 import com.codex.mystore.dao.repo.UserRepository;
 import com.codex.mystore.exception.ProcessException;
@@ -46,13 +47,13 @@ public class RegisterController {
             throw new ProcessException("Email Already Exist");
         }
 
-        Role adminRole = roleRepository.findByName("ROLE_ADMIN");
-        Role userRole = roleRepository.findByName("ROLE_USER");
+        Role adminRole = roleRepository.findByName(RoleType.ADMIN.getRoleName());
+        Role userRole = roleRepository.findByName(RoleType.USER.getRoleName());
         List<Role> roleList = new ArrayList<>();
-        if (registerRequest.getRoleList().contains(1)) {
+        if (registerRequest.getRoleList().contains(RoleType.ADMIN.getRoleType())) {
             roleList.add(adminRole);
         }
-        if (registerRequest.getRoleList().contains(2)) {
+        if (registerRequest.getRoleList().contains(RoleType.ADMIN.getRoleType())) {
             roleList.add(userRole);
         }
 
