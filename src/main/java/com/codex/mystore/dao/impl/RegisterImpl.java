@@ -1,5 +1,6 @@
 package com.codex.mystore.dao.impl;
 
+import com.codex.mystore.dao.repo.RegisterRepo;
 import com.codex.mystore.dao.repo.UserRepository;
 import com.codex.mystore.models.user.User;
 import com.codex.mystore.services.RegisterService;
@@ -10,10 +11,10 @@ import org.springframework.stereotype.Service;
 public class RegisterImpl implements RegisterService {
 
     @Autowired
-    UserRepository userRepository;
+    RegisterRepo registerRepo;
 
     @Override
     public User createUser(User user) {
-        return this.userRepository.save(user);
+        return this.registerRepo.save(user);
     }
 }
