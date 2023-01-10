@@ -1,9 +1,9 @@
-package com.codex.mystore.Services;
+package com.codex.mystore.dao.impl;
 
-import com.codex.mystore.Dao.RoleRepository;
-import com.codex.mystore.Dao.UserRepository;
-import com.codex.mystore.Models.MyUserDetails;
-import com.codex.mystore.Models.User;
+import com.codex.mystore.dao.repo.RoleRepository;
+import com.codex.mystore.dao.repo.UserRepository;
+import com.codex.mystore.models.user.MyUserDetails;
+import com.codex.mystore.models.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service("userDetailsService")
-public class MyUserDetailsService implements UserDetailsService {
+public class MyUserDetailsIImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;

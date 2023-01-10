@@ -1,9 +1,8 @@
-package com.codex.mystore.Controller;
+package com.codex.mystore.controller;
 
 
-import com.codex.mystore.Models.MyUserDetails;
-import com.codex.mystore.Models.User;
-import com.codex.mystore.Models.UserInfo;
+import com.codex.mystore.models.user.MyUserDetails;
+import com.codex.mystore.models.user.UserInfo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;

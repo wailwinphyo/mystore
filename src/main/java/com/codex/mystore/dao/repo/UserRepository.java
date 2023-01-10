@@ -1,6 +1,6 @@
-package com.codex.mystore.Dao;
+package com.codex.mystore.dao.repo;
 
-import com.codex.mystore.Models.User;
+import com.codex.mystore.models.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
@@ -9,6 +9,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Override
     void delete(User user);
-
 }
 

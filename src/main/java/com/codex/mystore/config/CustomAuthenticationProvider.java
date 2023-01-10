@@ -1,7 +1,7 @@
 //package com.codex.mystore.Config;
 //
 //import com.codex.mystore.Dao.UserRepository;
-//import com.codex.mystore.Models.User;
+//import com.codex.mystore.Models.User.User;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.authentication.AuthenticationProvider;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,6 +1,6 @@
-package com.codex.mystore.Config;
+package com.codex.mystore.config;
 
-import com.codex.mystore.Services.MyUserDetailsService;
+import com.codex.mystore.dao.impl.MyUserDetailsIImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,7 +25,7 @@ public class SecurityConfig {
     private AuthEntryPointJwt unauthorizedHandler;
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    private MyUserDetailsIImpl userDetailsService;
 
     @Autowired
     private AuthTokenFilter authTokenFilter;
@@ -36,7 +36,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(){
+    public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
@@ -49,17 +49,17 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                    .antMatchers("/api/auth/**").permitAll()
-                    .antMatchers("/api/users/secured").hasRole("ADMIN")
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/users/secured").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
-        
+
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

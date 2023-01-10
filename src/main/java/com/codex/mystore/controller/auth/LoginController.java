@@ -1,10 +1,10 @@
-package com.codex.mystore.Controller;
+package com.codex.mystore.controller.auth;
 
 
-import com.codex.mystore.Models.JwtResponse;
-import com.codex.mystore.Models.JwtRequest;
-import com.codex.mystore.Models.MyUserDetails;
-import com.codex.mystore.Utils.JwtUtils;
+import com.codex.mystore.models.response.LoginResponse;
+import com.codex.mystore.models.request.LoginRequest;
+import com.codex.mystore.models.user.MyUserDetails;
+import com.codex.mystore.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class LoginController {
 
     @Autowired
     AuthenticationManager authenticationmanager;
@@ -31,8 +31,8 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/token")
-    public ResponseEntity<?> authenticate(@Valid @RequestBody JwtRequest loginRequest){
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticate(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationmanager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -43,6 +43,6 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
+        return ResponseEntity.ok(new LoginResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 }

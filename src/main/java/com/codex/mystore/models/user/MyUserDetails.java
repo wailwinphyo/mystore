@@ -1,4 +1,4 @@
-package com.codex.mystore.Models;
+package com.codex.mystore.models.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

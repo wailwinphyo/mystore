@@ -1,12 +1,11 @@
-package com.codex.mystore.Models;
+package com.codex.mystore.models.user;
 
+import com.codex.mystore.models.role.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Entity

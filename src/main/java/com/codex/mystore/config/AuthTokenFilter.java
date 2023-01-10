@@ -1,7 +1,7 @@
-package com.codex.mystore.Config;
+package com.codex.mystore.config;
 
-import com.codex.mystore.Services.MyUserDetailsService;
-import com.codex.mystore.Utils.JwtUtils;
+import com.codex.mystore.dao.impl.MyUserDetailsIImpl;
+import com.codex.mystore.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +22,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    private MyUserDetailsIImpl userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

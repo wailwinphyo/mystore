@@ -1,10 +1,10 @@
 package com.codex.mystore.Init;
 
 
-import com.codex.mystore.Dao.RoleRepository;
-import com.codex.mystore.Dao.UserRepository;
-import com.codex.mystore.Models.Role;
-import com.codex.mystore.Models.User;
+import com.codex.mystore.dao.repo.RoleRepository;
+import com.codex.mystore.dao.repo.UserRepository;
+import com.codex.mystore.models.role.Role;
+import com.codex.mystore.models.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 @Component
 public class SetupDataLoader implements
@@ -49,14 +47,13 @@ public class SetupDataLoader implements
 
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
         Role userRole = roleRepository.findByName("ROLE_USER");
-        
-        if(!checkUserExists("test5@test.com"))
-        {
+
+        if (!checkUserExists("test5@test.com")) {
             User user = new User();
             user.setName("Tester 55");
             user.setPassword(passwordEncoder.encode("test"));
             user.setEmail("test5@test.com");
-            user.setRoles(Arrays.asList(adminRole));
+            user.setRoles(Arrays.asList(adminRole, userRole));
             user.setEnabled(true);
             userRepository.save(user);
 

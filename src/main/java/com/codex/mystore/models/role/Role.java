@@ -1,10 +1,9 @@
-package com.codex.mystore.Models;
+package com.codex.mystore.models.role;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Data

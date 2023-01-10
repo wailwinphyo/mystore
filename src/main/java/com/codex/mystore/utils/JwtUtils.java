@@ -1,13 +1,12 @@
-package com.codex.mystore.Utils;
+package com.codex.mystore.utils;
 
 import java.util.Date;
 
-import com.codex.mystore.Models.MyUserDetails;
+import com.codex.mystore.models.user.MyUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
