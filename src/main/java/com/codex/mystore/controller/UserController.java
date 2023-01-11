@@ -6,6 +6,7 @@ import com.codex.mystore.dao.repo.RoleRepository;
 import com.codex.mystore.dao.repo.UserRepository;
 import com.codex.mystore.exception.ProcessException;
 import com.codex.mystore.models.request.EditUserRequest;
+import com.codex.mystore.models.request.UpdatePasswordRequest;
 import com.codex.mystore.models.role.Role;
 import com.codex.mystore.models.user.MyUserDetails;
 import com.codex.mystore.models.user.User;
@@ -47,10 +48,13 @@ public class UserController {
         return ResponseEntity.ok(userList);
     }
 
+    @PutMapping("/updatePassword")
+    public ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
+        return ResponseEntity.ok("Update Pasword Success");
+    }
+
     @PutMapping("/editUser")
     public ResponseEntity<?> editUser(@RequestBody EditUserRequest editUserRequest) {
-
-
         Role adminRole = roleRepository.findByName(RoleType.ADMIN.getRoleName());
         Role userRole = roleRepository.findByName(RoleType.USER.getRoleName());
         Optional<User> user = userRepository.findById(editUserRequest.getId());
