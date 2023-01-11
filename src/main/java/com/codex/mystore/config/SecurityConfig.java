@@ -57,6 +57,7 @@ public class SecurityConfig {
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/register/**").permitAll()
                 .antMatchers("/api/users/secured").hasRole("ADMIN")
+                .antMatchers("/api/users/allUser").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

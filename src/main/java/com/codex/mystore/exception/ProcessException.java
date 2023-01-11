@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
 public class ProcessException extends RuntimeException {
-
     String reason;
 
     public ProcessException(String reason) {
