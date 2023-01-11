@@ -43,7 +43,7 @@ public class RegisterController {
         if (!matcher.matches()) {
             throw new ProcessException("Invalid Email Format");
         }
-        if (userRepository.findByEmail(registerRequest.getUserEmail()) == null) {
+        if (userRepository.findByEmail(registerRequest.getUserEmail()) != null) {
             throw new ProcessException("Email Already Exist");
         }
 

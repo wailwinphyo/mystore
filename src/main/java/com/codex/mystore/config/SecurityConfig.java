@@ -55,6 +55,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/register/**").permitAll()
                 .antMatchers("/api/users/secured").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
