@@ -53,7 +53,7 @@ public class RegisterController {
         if (registerRequest.getRoleList().contains(RoleType.ADMIN.getRoleType())) {
             roleList.add(adminRole);
         }
-        if (registerRequest.getRoleList().contains(RoleType.ADMIN.getRoleType())) {
+        if (registerRequest.getRoleList().contains(RoleType.USER.getRoleType())) {
             roleList.add(userRole);
         }
 
