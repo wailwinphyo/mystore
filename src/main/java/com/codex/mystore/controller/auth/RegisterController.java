@@ -4,7 +4,7 @@ import com.codex.mystore.constants.RoleType;
 import com.codex.mystore.dao.repo.RoleRepository;
 import com.codex.mystore.dao.repo.UserRepository;
 import com.codex.mystore.exception.ProcessException;
-import com.codex.mystore.models.request.RegisterRequest;
+import com.codex.mystore.network.request.RegisterRequest;
 import com.codex.mystore.models.role.Role;
 import com.codex.mystore.models.user.User;
 import com.codex.mystore.services.RegisterService;

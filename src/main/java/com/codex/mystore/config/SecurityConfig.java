@@ -60,6 +60,9 @@ public class SecurityConfig {
                 .antMatchers("/api/users/secured").hasRole("ADMIN")
                 .antMatchers("/api/users/editUser").hasRole("ADMIN")
                 .antMatchers("/api/users/allUser").hasRole("ADMIN")
+                .antMatchers("/api/role/createRole").hasRole("ADMIN")
+                .antMatchers("/api/role/project/createProject").hasRole("ADMIN")
+                .antMatchers("/api/guest/create").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

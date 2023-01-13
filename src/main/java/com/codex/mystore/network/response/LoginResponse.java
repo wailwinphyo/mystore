@@ -1,4 +1,4 @@
-package com.codex.mystore.models.response;
+package com.codex.mystore.network.response;
 
 import lombok.Data;
 

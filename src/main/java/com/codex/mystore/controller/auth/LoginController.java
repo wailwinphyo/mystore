@@ -1,8 +1,8 @@
 package com.codex.mystore.controller.auth;
 
 
-import com.codex.mystore.models.response.LoginResponse;
-import com.codex.mystore.models.request.LoginRequest;
+import com.codex.mystore.network.response.LoginResponse;
+import com.codex.mystore.network.request.LoginRequest;
 import com.codex.mystore.models.user.MyUserDetails;
 import com.codex.mystore.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;

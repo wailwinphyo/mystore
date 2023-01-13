@@ -4,9 +4,8 @@ package com.codex.mystore.controller;
 import com.codex.mystore.constants.RoleType;
 import com.codex.mystore.dao.repo.RoleRepository;
 import com.codex.mystore.dao.repo.UserRepository;
-import com.codex.mystore.exception.ProcessException;
-import com.codex.mystore.models.request.EditUserRequest;
-import com.codex.mystore.models.request.UpdatePasswordRequest;
+import com.codex.mystore.network.request.EditUserRequest;
+import com.codex.mystore.network.request.UpdatePasswordRequest;
 import com.codex.mystore.models.role.Role;
 import com.codex.mystore.models.user.MyUserDetails;
 import com.codex.mystore.models.user.User;
@@ -20,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/users")
