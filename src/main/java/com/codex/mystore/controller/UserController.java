@@ -65,11 +65,16 @@ public class UserController {
             List<Role> roleList = new ArrayList<>();
             Role adminRole = roleRepository.findByName(RoleType.ADMIN.getRoleName());
             Role userRole = roleRepository.findByName(RoleType.USER.getRoleName());
+            Role leaderRole = roleRepository.findByName(RoleType.LEADER.getRoleName());
 
             if (createUserRequest.getRoleList().contains(RoleType.ADMIN.getRoleType())) {
                 roleList.add(adminRole);
             }
             if (createUserRequest.getRoleList().contains(RoleType.USER.getRoleType())) {
+                roleList.add(userRole);
+            }
+
+            if (createUserRequest.getRoleList().contains(RoleType.LEADER.getRoleType())) {
                 roleList.add(userRole);
             }
 
@@ -89,6 +94,7 @@ public class UserController {
     public ResponseEntity<?> editUser(@RequestBody EditUserRequest editUserRequest) {
         Role adminRole = roleRepository.findByName(RoleType.ADMIN.getRoleName());
         Role userRole = roleRepository.findByName(RoleType.USER.getRoleName());
+        Role leaderRole = roleRepository.findByName(RoleType.LEADER.getRoleName());
         Optional<User> user = userRepository.findById(editUserRequest.getId());
         if (user.isPresent()) {
             User tempUser = user.get();
@@ -98,6 +104,10 @@ public class UserController {
             }
             if (editUserRequest.getRoleList().contains(RoleType.USER.getRoleType())) {
                 roleList.add(userRole);
+            }
+
+            if (editUserRequest.getRoleList().contains(RoleType.LEADER.getRoleType())) {
+                roleList.add(leaderRole);
             }
             tempUser.setRoles(roleList);
             userRepository.save(tempUser);

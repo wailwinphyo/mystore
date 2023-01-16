@@ -27,7 +27,7 @@ public class Project {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "create-at")
+    @Column(name = "create_at")
     private String createAt;
     @Column(name = "update_at")
     private String updateAt;

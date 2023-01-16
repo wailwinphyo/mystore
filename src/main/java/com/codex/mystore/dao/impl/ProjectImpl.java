@@ -6,7 +6,7 @@ import com.codex.mystore.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("roleService")
+@Service("projectService")
 public class ProjectImpl implements ProjectService {
 
     @Autowired

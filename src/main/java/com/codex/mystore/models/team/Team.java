@@ -17,7 +17,7 @@ public class Team {
     @Column(name = "team_name")
     private String teamName;
 
-    @Column(name = "create-at")
+    @Column(name = "create_at")
     private String createAt;
     @Column(name = "update_at")
     private String updateAt;
