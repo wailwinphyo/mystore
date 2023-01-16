@@ -18,6 +18,6 @@ public class Documents {
     @Column(name = "file_path", nullable = false)
     private String filePath;
 
-    @Column(name = "create_ai")
+    @Column(name = "create_at")
     private String createAt;
 }

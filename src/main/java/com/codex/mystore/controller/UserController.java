@@ -4,6 +4,7 @@ package com.codex.mystore.controller;
 import com.codex.mystore.constants.RoleType;
 import com.codex.mystore.dao.repo.RoleRepository;
 import com.codex.mystore.dao.repo.UserRepository;
+import com.codex.mystore.network.request.CreateUserRequest;
 import com.codex.mystore.network.request.EditUserRequest;
 import com.codex.mystore.network.request.UpdatePasswordRequest;
 import com.codex.mystore.models.role.Role;
@@ -14,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +30,9 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/info")
     public ResponseEntity<?> getInfo() {
@@ -48,6 +54,35 @@ public class UserController {
     @PutMapping("/updatePassword")
     public ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
         return ResponseEntity.ok("Update Pasword Success");
+    }
+
+    @PostMapping("/createUser")
+    public ResponseEntity<?> createUser(@RequestBody CreateUserRequest createUserRequest) {
+
+        User user = userRepository.findByEmail(createUserRequest.getEmail());
+
+        if (user != null) {
+            List<Role> roleList = new ArrayList<>();
+            Role adminRole = roleRepository.findByName(RoleType.ADMIN.getRoleName());
+            Role userRole = roleRepository.findByName(RoleType.USER.getRoleName());
+
+            if (createUserRequest.getRoleList().contains(RoleType.ADMIN.getRoleType())) {
+                roleList.add(adminRole);
+            }
+            if (createUserRequest.getRoleList().contains(RoleType.USER.getRoleType())) {
+                roleList.add(userRole);
+            }
+
+            User newUser = new User();
+            newUser.setName(createUserRequest.getName());
+            newUser.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
+            newUser.setEmail(createUserRequest.getEmail());
+            newUser.setRoles(roleList);
+            newUser.setEnabled(true);
+            userRepository.save(user);
+            return new ResponseEntity<>("Create Successfully", HttpStatus.CREATED);
+        }
+        return ResponseEntity.ok("User Already Exists");
     }
 
     @PutMapping("/editUser")

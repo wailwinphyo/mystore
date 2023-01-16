@@ -1,6 +1,7 @@
 package com.codex.mystore.models.project;
 
 import com.codex.mystore.models.documents.Documents;
+import com.codex.mystore.models.tasks.Task;
 import com.codex.mystore.models.team.Team;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class Project {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "create_ai")
+    @Column(name = "create-at")
     private String createAt;
     @Column(name = "update_at")
     private String updateAt;
@@ -34,6 +35,10 @@ public class Project {
     @OneToOne(optional = true)
     private Team team;
 
-    @OneToMany()
+    @OneToMany
     private Collection<Documents> documentList;
+
+    @OneToMany
+    @JoinTable(name = "project_task_list")
+    private Collection<Task> taskList;
 }

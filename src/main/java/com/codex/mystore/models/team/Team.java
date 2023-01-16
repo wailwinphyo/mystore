@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -16,8 +17,12 @@ public class Team {
     @Column(name = "team_name")
     private String teamName;
 
-    @Column(name = "create_ai")
+    @Column(name = "create-at")
     private String createAt;
     @Column(name = "update_at")
     private String updateAt;
+
+    @OneToMany()
+    @JoinTable(name = "team_member_list")
+    private Collection<TeamMember> teamMembers;
 }

@@ -13,7 +13,9 @@ import java.util.Collection;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "create_ai")
+    private Long id;
+    
+    @Column(name = "create-at")
     private String createAt;
     @Column(name = "update_at")
     private String updateAt;
