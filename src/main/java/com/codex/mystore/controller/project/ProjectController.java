@@ -1,22 +1,16 @@
 package com.codex.mystore.controller.project;
 
-import com.codex.mystore.dao.repo.GuestRepo;
-import com.codex.mystore.models.guest.Guest;
 import com.codex.mystore.models.project.Project;
-import com.codex.mystore.network.request.GuestProjectRequest;
+import com.codex.mystore.network.request.EditProjectRequest;
 import com.codex.mystore.network.request.ProjectRequest;
-import com.codex.mystore.services.GuestService;
 import com.codex.mystore.services.ProjectService;
 import com.codex.mystore.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/project")
@@ -28,7 +22,7 @@ public class ProjectController {
     ProjectService projectService;
 
     @PostMapping(value = "/createProject")
-    public ResponseEntity<?> createRole(@RequestBody ProjectRequest projectRequest) {
+    public ResponseEntity<?> createProject(@RequestBody ProjectRequest projectRequest) {
         String currentDateTime = dateUtils.currentDateAndTime();
 
         Project project = new Project();
@@ -41,5 +35,24 @@ public class ProjectController {
         project.setCreateAt(currentDateTime);
         return new ResponseEntity<>(projectService.createProject(project), HttpStatus.CREATED);
     }
+
+    @DeleteMapping(value = "/editProject")
+    public ResponseEntity<?> createProject(@RequestBody EditProjectRequest editProjectRequest) {
+
+        String currentDateTime = dateUtils.currentDateAndTime();
+
+        Optional<Project> project = projectService.getProject(editProjectRequest.getProjectId());
+
+        if(project.isPresent()){
+            Project tempProject = project.get();
+            tempProject.setProjectName(editProjectRequest.getProjectName());
+            tempProject.setDescription(editProjectRequest.getProjectDescription());
+            tempProject.setStartDate(currentDateTime);
+            tempProject.setEndDate(currentDateTime);
+            tempProject.setUpdateAt(currentDateTime);
+        }
+        return new ResponseEntity<>("Update Project Successfully", HttpStatus.OK);
+    }
+
 
 }
