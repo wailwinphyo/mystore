@@ -4,6 +4,7 @@ import com.codex.mystore.models.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -13,4 +14,7 @@ public class TeamMember {
     private Long id;
     @OneToOne()
     private User user;
+
+    @OneToMany
+    private Collection<TeamPermission> teamPermissionList;
 }

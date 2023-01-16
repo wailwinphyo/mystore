@@ -59,10 +59,12 @@ public class SecurityConfig {
                 .antMatchers("/api/users/updatePassword").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/api/users/secured").hasRole("ADMIN")
                 .antMatchers("/api/users/editUser").hasRole("ADMIN")
-                .antMatchers("/api/users/allUser").hasAnyRole("ADMIN","LEADER")
+                .antMatchers("/api/users/allUser").hasAnyRole("ADMIN", "LEADER")
                 .antMatchers("/api/role/createRole").hasRole("ADMIN")
                 .antMatchers("/api/role/project/createProject").hasRole("ADMIN")
                 .antMatchers("/api/guest/create").hasRole("ADMIN")
+                .antMatchers("/api/task/**").hasAnyRole("ADMIN", "LEADER", "USER")
+                .antMatchers("/api/guest/**").hasAnyRole("ADMIN", "GUEST")
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

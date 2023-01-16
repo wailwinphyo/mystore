@@ -6,6 +6,8 @@ import com.codex.mystore.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service("projectService")
 public class ProjectImpl implements ProjectService {
 
@@ -15,5 +17,10 @@ public class ProjectImpl implements ProjectService {
     @Override
     public Project createProject(Project project) {
         return projectRepo.save(project);
+    }
+
+    @Override
+    public Optional<Project> getProject(Long id) {
+        return projectRepo.findById(id);
     }
 }

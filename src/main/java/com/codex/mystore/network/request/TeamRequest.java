@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.ArrayList;
 
 @Data
-public class ProjectRequest {
-    private String projectName;
-    private String projectDescription;
+public class TeamRequest {
+    private String teamName;
     private ArrayList<Integer> memberList;
+
 }
