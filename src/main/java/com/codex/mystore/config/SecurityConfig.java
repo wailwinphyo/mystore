@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -29,6 +30,9 @@ public class SecurityConfig {
 
     @Autowired
     private AuthTokenFilter authTokenFilter;
+
+    @Autowired
+    private TeamAuthorityFilter teamAuthorityFilter;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfiguration) throws Exception {
@@ -65,11 +69,15 @@ public class SecurityConfig {
                 .antMatchers("/api/guest/create").hasRole("ADMIN")
                 .antMatchers("/api/task/**").hasAnyRole("ADMIN", "LEADER", "USER")
                 .antMatchers("/api/guest/**").hasAnyRole("ADMIN", "GUEST")
+
+                .antMatchers("/api/project/developer").hasAnyAuthority("MOBILE_DEVELOPER")
+                .antMatchers(HttpMethod.DELETE, "/api/project/*").hasAnyAuthority("TASK_DELETE")
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
 
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(teamAuthorityFilter, AuthTokenFilter.class);
 
         return http.build();
     }

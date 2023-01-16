@@ -4,6 +4,7 @@ package com.codex.mystore.controller;
 import com.codex.mystore.constants.RoleType;
 import com.codex.mystore.dao.repo.RoleRepository;
 import com.codex.mystore.dao.repo.UserRepository;
+import com.codex.mystore.models.user.UserDto;
 import com.codex.mystore.network.request.CreateUserRequest;
 import com.codex.mystore.network.request.EditUserRequest;
 import com.codex.mystore.network.request.UpdatePasswordRequest;
@@ -18,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,12 +39,23 @@ public class UserController {
     @GetMapping("/info")
     public ResponseEntity<?> getInfo() {
         MyUserDetails user = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         return ResponseEntity.ok(new UserInfo(user));
     }
 
     @GetMapping("/secured")
     public ResponseEntity<?> getSecuredInfo() {
         return ResponseEntity.ok("Secured info");
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> updateUser(@RequestBody UserDto userDto){
+        MyUserDetails user = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user1 = new User(userDto);
+        user1.setId(user.getId());
+        //userRepository.update(user1);
+        return ResponseEntity.ok("success");
     }
 
     @GetMapping("/allUser")

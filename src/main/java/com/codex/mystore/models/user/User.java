@@ -18,6 +18,10 @@ public class User {
 
     private String name;
     private String email;
+
+    private String address;
+    private String phoneNumber;
+
     private String password;
     private boolean enabled;
 
@@ -33,4 +37,14 @@ public class User {
     )
     private Collection<Role> roles;
 
+
+    public User(UserDto userDto) {
+        this.name = userDto.getName();
+        this.address = userDto.getAddress();
+        this.phoneNumber = userDto.getPhNumber();
+    }
+
+    public User(Long id) {
+        this.id = id;
+    }
 }

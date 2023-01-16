@@ -21,6 +21,22 @@ public class ProjectController {
     @Autowired
     ProjectService projectService;
 
+
+    @GetMapping("/developer")
+    public ResponseEntity<?> checkRole(){
+        return ResponseEntity.ok("Developer");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> checkRolePM(){
+        return ResponseEntity.ok("Project Manager");
+    }
+
+    @GetMapping("/{project_id}/tasks")
+    public ResponseEntity<?> getTasks(){
+        return ResponseEntity.ok("Task list");
+    }
+
     @PostMapping(value = "/createProject")
     public ResponseEntity<?> createProject(@RequestBody ProjectRequest projectRequest) {
         String currentDateTime = dateUtils.currentDateAndTime();

@@ -21,6 +21,7 @@ public class Guest {
     private String createAt;
     private String updateAt;
 
+    @OneToMany
     @JoinTable(
             name = "guest_project",
             joinColumns = @JoinColumn(

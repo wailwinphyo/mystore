@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -19,7 +20,7 @@ public class Role {
     /*@ManyToMany(mappedBy = "roles")
     private Collection<User> users;*/
 
-    /*@ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "roles_privileges",
             joinColumns = @JoinColumn(
@@ -29,7 +30,15 @@ public class Role {
                     name = "privilege_id", referencedColumnName = "id"
             )
     )
-    private Collection<Privilege> privileges;*/
+    private Collection<Privilege> privileges = new java.util.ArrayList<>();
+
+    public Collection<Privilege> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(Collection<Privilege> privileges) {
+        this.privileges = privileges;
+    }
 
     public Role(String name) {
         this.name = name;

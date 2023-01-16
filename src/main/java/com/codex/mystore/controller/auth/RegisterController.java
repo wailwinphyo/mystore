@@ -49,6 +49,8 @@ public class RegisterController {
 
         Role adminRole = roleRepository.findByName(RoleType.ADMIN.getRoleName());
         Role userRole = roleRepository.findByName(RoleType.USER.getRoleName());
+
+
         List<Role> roleList = new ArrayList<>();
         if (registerRequest.getRoleList().contains(RoleType.ADMIN.getRoleType())) {
             roleList.add(adminRole);

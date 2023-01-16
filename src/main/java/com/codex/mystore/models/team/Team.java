@@ -1,5 +1,6 @@
 package com.codex.mystore.models.team;
 
+import com.codex.mystore.models.project.Project;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,8 +20,13 @@ public class Team {
 
     @Column(name = "create_at")
     private String createAt;
+
     @Column(name = "update_at")
     private String updateAt;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 
     @OneToMany()
     @JoinTable(name = "team_member_list")

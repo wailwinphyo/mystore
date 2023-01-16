@@ -2,8 +2,10 @@ package com.codex.mystore.Init;
 
 
 import com.codex.mystore.dao.repo.RoleRepository;
+import com.codex.mystore.dao.repo.TeamMemberRepository;
 import com.codex.mystore.dao.repo.UserRepository;
 import com.codex.mystore.models.role.Role;
+import com.codex.mystore.models.team.TeamMember;
 import com.codex.mystore.models.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -30,9 +32,17 @@ public class SetupDataLoader implements
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private TeamMemberRepository teamMemberRepository;
+
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+
+        //TeamMember teamMember = teamMemberRepository.findTeamMemberByUser(new User(1L));
+
+        //System.out.println(teamMember);
+
 
         /*Privilege readPrivilege
                 = createPrivilegeIfNotFound("READ_PRIVILEGE");

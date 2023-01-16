@@ -1,6 +1,9 @@
 package com.codex.mystore.controller.auth;
 
 
+import com.codex.mystore.dao.repo.TeamMemberRepository;
+import com.codex.mystore.models.team.TeamMember;
+import com.codex.mystore.models.user.User;
 import com.codex.mystore.network.response.LoginResponse;
 import com.codex.mystore.network.request.LoginRequest;
 import com.codex.mystore.models.user.MyUserDetails;
@@ -31,6 +34,9 @@ public class LoginController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    TeamMemberRepository teamMemberRepository;
+
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationmanager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -42,6 +48,9 @@ public class LoginController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
+
+//        TeamMember teamMember = teamMemberRepository.findTeamMemberByUser(new User(userDetails.getId()));
+//        teamMember.
 
         return ResponseEntity.ok(new LoginResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
     }

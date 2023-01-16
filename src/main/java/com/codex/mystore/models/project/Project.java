@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -32,8 +33,11 @@ public class Project {
     @Column(name = "update_at")
     private String updateAt;
 
-    @OneToOne(optional = true)
-    private Team team;
+    /*@OneToOne(optional = true)
+    private Team team;*/
+
+    /*@OneToMany
+    private List<Team> teamList;*/
 
     @OneToMany
     private Collection<Documents> documentList;
