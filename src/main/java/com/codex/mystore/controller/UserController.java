@@ -61,7 +61,7 @@ public class UserController {
 
         User user = userRepository.findByEmail(createUserRequest.getEmail());
 
-        if (user != null) {
+        if (user == null) {
             List<Role> roleList = new ArrayList<>();
             Role adminRole = roleRepository.findByName(RoleType.ADMIN.getRoleName());
             Role userRole = roleRepository.findByName(RoleType.USER.getRoleName());
@@ -79,7 +79,7 @@ public class UserController {
             newUser.setEmail(createUserRequest.getEmail());
             newUser.setRoles(roleList);
             newUser.setEnabled(true);
-            userRepository.save(user);
+            userRepository.save(newUser);
             return new ResponseEntity<>("Create Successfully", HttpStatus.CREATED);
         }
         return ResponseEntity.ok("User Already Exists");
